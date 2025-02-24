@@ -41,3 +41,44 @@ SELECT my_column
  SELECT order_id, product_id, sales
   FROM orders
  WHERE region NOT IN ('West', 'South');
+
+
+ For example, let's say we want to keep records with sales greater than 500 and exclude those from the 'West' and 'South' regions:
+
+SELECT order_id, product_id, sales
+  FROM orders
+ WHERE sales > 500 AND region NOT IN ('West', 'South');
+
+
+
+
+
+
+
+
+
+ -- First, find the top three states by total sales
+WITH top_states AS (
+  SELECT state
+  FROM sales_data
+  GROUP BY state
+  ORDER BY SUM(sales) DESC
+  LIMIT 3
+),
+
+-- Then, exclude these states and filter sales over $5,000
+filtered_sales AS (
+  SELECT order_id, city, state, sales
+  FROM sales_data
+  WHERE state NOT IN (SELECT state FROM top_states)
+  AND sales > 5000
+)
+
+-- Finally, select the required columns
+SELECT order_id, city, state, sales
+FROM filtered_sales;
+
+SELECT order_id, city, state, sales
+FROM orders
+WHERE state NOT IN ('California', 'New York', 'Texas')
+AND sales > 5000;

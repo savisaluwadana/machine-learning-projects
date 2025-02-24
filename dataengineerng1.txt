@@ -21,3 +21,23 @@ SELECT DISTINCT category
 
   SELECT DISTINCT category, subcategory
   FROM orders;
+
+  SELECT DISTINCT order_id, customer_name
+FROM orders
+WHERE city = 'Buffalo' AND state = 'New York';
+
+SELECT order_id, product_id, region
+  FROM orders
+ WHERE region IN ('West', 'East');
+
+ SELECT DISTINCT ship_mode, state
+FROM orders
+WHERE state IN ('District of Columbia', 'North Dakota', 'Vermont', 'West Virginia');
+
+SELECT my_column
+  FROM table
+ WHERE my_column IS NOT NULL
+
+ SELECT order_id, product_id, sales
+  FROM orders
+ WHERE region NOT IN ('West', 'South');
